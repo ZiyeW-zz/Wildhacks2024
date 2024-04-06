@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6872160A2BC1B982006636B2 /* LoginSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687216092BC1B982006636B2 /* LoginSignUp.swift */; };
 		687642D12BBBA68900FA58E6 /* WildHacks2024App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687642D02BBBA68900FA58E6 /* WildHacks2024App.swift */; };
 		687642D32BBBA68900FA58E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687642D22BBBA68900FA58E6 /* ContentView.swift */; };
 		687642D52BBBA68D00FA58E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 687642D42BBBA68D00FA58E6 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 		687642E22BBBA68D00FA58E6 /* WildHacks2024Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687642E12BBBA68D00FA58E6 /* WildHacks2024Tests.swift */; };
 		687642EC2BBBA68D00FA58E6 /* WildHacks2024UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687642EB2BBBA68D00FA58E6 /* WildHacks2024UITests.swift */; };
 		687642EE2BBBA68D00FA58E6 /* WildHacks2024UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687642ED2BBBA68D00FA58E6 /* WildHacks2024UITestsLaunchTests.swift */; };
+		68E78A9D2BC1BF9900C0C421 /* IntroMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E78A9C2BC1BF9900C0C421 /* IntroMood.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		687216092BC1B982006636B2 /* LoginSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUp.swift; sourceTree = "<group>"; };
 		687642CD2BBBA68900FA58E6 /* WildHacks2024.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WildHacks2024.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		687642D02BBBA68900FA58E6 /* WildHacks2024App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildHacks2024App.swift; sourceTree = "<group>"; };
 		687642D22BBBA68900FA58E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +47,7 @@
 		687642E72BBBA68D00FA58E6 /* WildHacks2024UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WildHacks2024UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		687642EB2BBBA68D00FA58E6 /* WildHacks2024UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildHacks2024UITests.swift; sourceTree = "<group>"; };
 		687642ED2BBBA68D00FA58E6 /* WildHacks2024UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildHacks2024UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		68E78A9C2BC1BF9900C0C421 /* IntroMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroMood.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 			children = (
 				687642D02BBBA68900FA58E6 /* WildHacks2024App.swift */,
 				687642D22BBBA68900FA58E6 /* ContentView.swift */,
+				687216092BC1B982006636B2 /* LoginSignUp.swift */,
+				68E78A9C2BC1BF9900C0C421 /* IntroMood.swift */,
 				687642D42BBBA68D00FA58E6 /* Assets.xcassets */,
 				687642D62BBBA68D00FA58E6 /* Preview Content */,
 			);
@@ -258,7 +264,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				687642D32BBBA68900FA58E6 /* ContentView.swift in Sources */,
+				68E78A9D2BC1BF9900C0C421 /* IntroMood.swift in Sources */,
 				687642D12BBBA68900FA58E6 /* WildHacks2024App.swift in Sources */,
+				6872160A2BC1B982006636B2 /* LoginSignUp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
