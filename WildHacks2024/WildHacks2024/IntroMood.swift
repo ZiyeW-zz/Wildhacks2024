@@ -39,6 +39,7 @@ struct IntroMood: View {
                     Group {
                         Button(action: SourceMood) {
                             Text("Boost Confidence")
+                                .foregroundColor(.red)
                         }
                         .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
                         
