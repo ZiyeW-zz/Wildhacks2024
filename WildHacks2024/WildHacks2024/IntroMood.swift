@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+let lighterButtonColor = Color(red: 191 / 255, green: 179 / 255, blue: 170 / 255) //lighterbutton color, for unselected
 
 struct IntroMood: View {
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
@@ -36,14 +37,24 @@ struct IntroMood: View {
                     let buttonWidth = geometry.size.width * (6.5/8) // Leaves 1/8th margin on each side
                     
                     Group {
-                        Button(action: BoostConfidence) {
+                        Button(action: SourceMood) {
                             Text("Boost Confidence")
                         }
                         .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
                         
                         // Repeat the button with different texts or actions as needed
-                        Button(action: BoostConfidence) {
-                            Text("Boost Confidence")
+                        Button(action: SourceMood) {
+                            Text("Focus & Study")
+                        }
+                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+                        
+                        Button(action: SourceMood) {
+                            Text("2010s Whiplash")
+                        }
+                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+                        
+                        Button(action: SourceMood) {
+                            Text("Something New")
                         }
                         .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
 
@@ -60,7 +71,7 @@ struct IntroMood: View {
         }//geometryreader
        
     }//body
-    func BoostConfidence(){
+    func SourceMood(){
                  }
 }
     
@@ -70,10 +81,11 @@ struct CustomButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .frame(width: buttonWidth, height: 40, alignment: .center)
-            .foregroundColor(.white)
-            .background(buttonColor)
-            .cornerRadius(10)
+            .frame(width: buttonWidth, height: 50, alignment: .center)
+            .font(.system(size : 20, weight: .medium))            .background(lighterButtonColor)
+            .foregroundColor(.black)
+            .cornerRadius(15)
+            .padding(.bottom, 10)
             .padding(.top, configuration.isPressed ? 5 : 0) // Optional: Change padding on press for a click effect
     }
 }
