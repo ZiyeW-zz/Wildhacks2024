@@ -16,42 +16,78 @@ struct MoodRecommendations: View {
     
     let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) //bb blue
     var body: some View {
-        GeometryReader{ geometry in
-            ZStack{
-
-                backgroundColor
-                    .ignoresSafeArea()
-                VStack(spacing: 10){
-
+        
+            GeometryReader{ geometry in
+                
+                ZStack{
                     
-                    Image("NotLikeOtherGirlsHeadshot")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: geometry.size.width/2, height: geometry.size.height/5 )
-
-                    
-                    Text(SelectedMood)
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.top, -10)
-                         
-
-                    
-                    Group {
+                    backgroundColor
+                        .ignoresSafeArea()
+                    ScrollView{
+                    VStack(spacing: 10){
                         
-
-
-                    }
-
-                    
-                    
-                    
-                    
-                }//vstack
-                .frame(width:geometry.size.width / 1.2)
-                .padding()
-            }//zstack
-        }//geometryreader
+                        
+                        Image("NotLikeOtherGirlsHeadshot")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geometry.size.width/2, height: geometry.size.height/5 )
+                        
+                        
+                        Text(SelectedMood)
+                            .font(.largeTitle)
+                            .bold()
+                            .padding(.top, -10)
+                        
+                        
+                        
+                        Group {
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            Text("Song1")
+                                .padding()
+                            
+                            
+                            
+                        }
+                        
+                        
+                        
+                        
+                        
+                    }//vstack
+                    .frame(width:geometry.size.width / 1.2)
+                    .padding()
+                }//zstack
+            }//geometryreader
+        }//scrollView
        
     }//body
     func SourceMood(){

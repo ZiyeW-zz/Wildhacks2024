@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomepageView: View {
 //    var authService: AuthService
+    
+    var spotifyUser: String
 
     
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
@@ -37,19 +39,33 @@ struct HomepageView: View {
                     
                     
                     VStack(spacing: 10){
-                        Image("NotLikeOherGirls")
+                        
+                        Button(action: OpenFriends) {
+                           
+                        }
+                        .background(
+                            Image("Friends")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50, height: 50)
+                                .padding(.top, -200)
+                                .padding(.leading, -150))
+                        
+                        
+                        Image("soulsearch")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                         //                        .frame(width: geometry.size.width, height: geometry.size.height / 2 ) // Adjust the width as needed
                             .shadow(color: Color.black.opacity(0.3), radius: 7, x: 0, y: 5)
                             .offset(y: self.isAnimating ? -10 : 10)
+                            .padding(.top, -100)
                         
                         Text("March Persona")
                             .foregroundColor(toggleColor)
                             .font(.system(size: 30, weight: .medium))
                             .bold()
-                            .padding(.top, 30)
-                        Text("(Not?) Like Other Girls")
+//                            .padding(.top, 30)
+                        Text("Soul Searching")
                             .padding()
                             .foregroundColor(.white)
                             .background(Rectangle()
@@ -58,26 +74,31 @@ struct HomepageView: View {
                             .bold()
                             .padding(.bottom, 30)
                         HStack{
-                            NavigationLink(destination: YouAre()){
+                            NavigationLink(destination: YouAre(user: spotifyUser)){
                                 LeftArrowShape()
                                     .frame(width: 50, height: 30)
                                     .foregroundColor(toggleColor)
                                     .cornerRadius(10)
+                                Text("Profile")
                                 
                                 
                             }
-                            .padding(.trailing, 90)
+                            .padding(.trailing, 50)
                             
                             
                             NavigationLink(destination: IntroMood()){
+                                Text("Discover Moods")
+                                    .frame(width: 70)
                                 RightArrowShape()
                                     .frame(width: 50, height: 30)
                                     .foregroundColor(toggleColor)
                                     .cornerRadius(10)
+                                
                             }
-                            .padding(.leading, 90)
+                            .padding(.leading, 70)
                         }
-                        .padding(.bottom, 30)
+//                        .padding(.bottom, 30)
+
                         
                     }//vstack
                     NavigationLink(destination: IntroMood(), isActive: $isShowingDestinationView) {
@@ -131,20 +152,24 @@ struct RightArrowShape: Shape {
 }
 
 struct LeftArrowShape: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        // Start at the top right
-        path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
-        // Line to the bottom right
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        // Line to the middle left
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
-        // Close the path back to the top right
-        path.closeSubpath()
-        
-        return path
-    }
+        func path(in rect: CGRect) -> Path {
+            var path = Path()
+            
+            // Start at the top right
+            path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
+            // Line to the bottom right
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+            // Line to the middle left
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
+            // Close the path back to the top right
+            path.closeSubpath()
+            
+            return path
+        }
+}
+
+func OpenFriends() {
+    
 }
 
     
@@ -152,9 +177,6 @@ struct LeftArrowShape: Shape {
     
 struct HomepageView_Previews: PreviewProvider {
     static var previews: some View {
-        HomepageView()
+        HomepageView( spotifyUser: "meefy101")
     }
 }
-//#Preview {
-//    HomepageView()
-//}

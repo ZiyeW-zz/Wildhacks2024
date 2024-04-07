@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct WildHacks2024App: App {
     @StateObject var authManager = AuthService()
+    let tempUser = "meefy101"
+
     
     var body: some Scene {
         WindowGroup{
             if authManager.isAuthenticated {
-                HomepageView().environmentObject(authManager)
+                HomepageView(spotifyUser: tempUser).environmentObject(authManager)
             } else {
                 LoginSignUp().environmentObject(authManager)
             }
