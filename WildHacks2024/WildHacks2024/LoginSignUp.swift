@@ -116,6 +116,4 @@ struct SLoginSignUp_Previews: PreviewProvider {
         LoginSignUp()
     }
 }
-//#Preview {
-//    LoginSignUp()
-//}
+
