@@ -42,12 +42,13 @@ struct IntroMood: View {
                                 .bold()
                                 .padding(.leading, -5)
                         }
-                        .padding(.leading, -70)
+//                        .padding(.leading, -70)
                         Text("What are you in")
                             .font(.largeTitle)
                             .bold()
                         Text("the mood for?")
                             .font(.largeTitle)
+                            .padding(.top, -15)
                             .bold()
                         
                         
@@ -71,7 +72,7 @@ struct IntroMood: View {
                         let buttonWidth = geometry.size.width * (6.5/8) // Leaves 1/8th margin on each side
                         
                         Group {
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "Blast Powerhouse")) {
+                            NavigationLink(destination: MoodRecommendations(SelectedMood: "happy")) {
                                 Text("Blast Powerhouse")
                             }
                             .frame(width: buttonWidth, height: 50, alignment: .center)
@@ -82,7 +83,7 @@ struct IntroMood: View {
                             .padding(.bottom, 10)
 
                             
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "Soul Searchers")) {
+                            NavigationLink(destination: MoodRecommendations(SelectedMood: "sad")) {
                                 Text("Soul Searchers")
                             }
                             .frame(width: buttonWidth, height: 50, alignment: .center)
@@ -92,7 +93,7 @@ struct IntroMood: View {
                             .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
                             .padding(.bottom, 10)
                             
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "(Not) like other girls")) {
+                            NavigationLink(destination: MoodRecommendations(SelectedMood: "basic")) {
                                 Text("(Not) like other girls")
                             }
                             .frame(width: buttonWidth, height: 50, alignment: .center)
@@ -102,7 +103,7 @@ struct IntroMood: View {
                             .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
                             .padding(.bottom, 10)
                             
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "Study Bug")) {
+                            NavigationLink(destination: MoodRecommendations(SelectedMood: "study")) {
                                 Text("Study Bug")
                             }
                             .frame(width: buttonWidth, height: 50, alignment: .center)
@@ -113,7 +114,7 @@ struct IntroMood: View {
                             .padding(.bottom, 10)
                             
                             
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "Global Groover")) {
+                            NavigationLink(destination: MoodRecommendations(SelectedMood: "mixed")) {
                                 Text("Global Groover")
                             }
                             .frame(width: buttonWidth, height: 50, alignment: .center)
