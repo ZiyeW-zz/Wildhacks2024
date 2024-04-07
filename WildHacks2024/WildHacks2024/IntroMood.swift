@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
-let lighterButtonColor = Color(red: 191 / 255, green: 179 / 255, blue: 170 / 255) //lighterbutton color, for unselected
+let lighterButtonColor = Color(red: 180 / 255, green: 220 / 255, blue: 160 / 255) //lighterbutton color, for unselected
+
+let darkerGreen = Color(red: 150 / 255, green: 190 / 255, blue: 130 / 255)
 
 struct IntroMood: View {
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
@@ -28,7 +30,7 @@ struct IntroMood: View {
                     Text("Meefy101")
                         .font(.largeTitle)
                         .bold()
-                        .foregroundColor(accentColor)
+                        .foregroundColor(darkerGreen)
                         .padding(.top, -10)
                     
                     Image("NotLikeOtherGirlsHeadshot")
@@ -48,22 +50,30 @@ struct IntroMood: View {
                             Text("Boost Confidence")
                         }
                         .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+
                         
                         // Repeat the button with different texts or actions as needed
                         Button(action: SourceMood) {
                             Text("Focus & Study")
                         }
                         .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+
                         
                         Button(action: SourceMood) {
                             Text("2010s Whiplash")
                         }
                         .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+
                         
                         Button(action: SourceMood) {
                             Text("Something New")
                         }
                         .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+
 
                     }
 
