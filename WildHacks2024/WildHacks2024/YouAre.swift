@@ -8,57 +8,44 @@
 import SwiftUI
 
 struct YouAre: View {
-    let backgroundColor = Color(red: 243 / 255, green: 229 / 255, blue: 202 / 255) //beige
-    
-    let toggleColor = Color(red: 129 / 255, green: 103 / 255, blue: 85 / 255) //darker brown
-    
-    let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) //bb blue
-    
+    let backgroundColor = Color(red: 243 / 255, green: 229 / 255, blue: 202 / 255) // Beige
+    let toggleColor = Color(red: 129 / 255, green: 103 / 255, blue: 85 / 255) // Darker brown
+    let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) // BB blue
+
     var body: some View {
-        GeometryReader{ geometry in
-            ZStack{
-                VStack (spacing: 10){
-                //            backgroundColor.ignoresSafeArea()
-                Image("NotLikeOtherGirlsHeadshot").resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .background(Circle().foregroundColor(backgroundColor))
-//                        .frame(width: geometry.size.width/2, height: geometry.size.height/2, alignment: .center)
-//                        .position(x:geometry.size.width/2, y:geometry.size.height/8)
-                        .padding(.top, 20)
-                    
-                    Text("@meefy101")
-                        .foregroundColor(toggleColor)
-                        .padding(.bottom, 5)
-                    Text("Lacy")
-                        .font(.system(size: 20))
-                        .background(Rectangle().foregroundColor(toggleColor).frame(width: geometry.size.width/2, height:geometry.size.height/20).cornerRadius(15))
-                        .foregroundColor(.white)
-                        .padding(.bottom, 50)
-                    
-                    
-                    TodayMood(backgroundColor: backgroundColor) // Instantiate your TodayMood view here
-                        .padding()
-                        .frame(width: 200, height: 100)
-                    
-                    MoodStats(toggleColor: toggleColor) // Instantiate your TodayMood view here
-                        .padding()
-                        .frame(width: 200, height: 100)
+        VStack {
+            Image("NotLikeOtherGirlsHeadshot")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .background(Circle().foregroundColor(backgroundColor))
+                .frame(width: 200, height: 200) // Adjust the frame as needed
+                .padding(.top, 20)
 
+            Text("@meefy101")
+                .foregroundColor(toggleColor)
+                .padding(.bottom, 5)
 
+            Text("Lacy")
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+                .padding()
+                .background(toggleColor)
+                .cornerRadius(15)
+                .padding(.bottom, 50)
 
-                
-                    
-                    
-                }//vstack
-//                .frame(width:geometry.size.width)
-                .padding(.leading, 30)
-                .padding(.trailing, 30)
+            TodayMood(backgroundColor: backgroundColor)
+                .frame(width: 200, height: 100)
+                .padding()
 
-
-                
-            }//zstack
-        } //geomtetry
-    }//body
+            MoodStats(toggleColor: toggleColor)
+                .frame(width: 200, height: 100)
+                .padding()
+        }
+//        .background(backgroundColor)
+//        .cornerRadius(15)
+//        .shadow(radius: 3)
+//        .padding() // Add some padding around the entire VStack to ensure it's not touching the edges of the screen.
+    }
 }
 
 struct TodayMood : View {

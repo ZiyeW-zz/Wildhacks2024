@@ -26,8 +26,16 @@ struct HomepageView: View {
             GeometryReader{ geometry in
                 ZStack{
                     //                let pageWidth = geometry.size.width * (7/8) // Leaves 1/8th margin on each side
-                    backgroundColor
-                        .ignoresSafeArea()
+//                    backgroundColor
+//                        .ignoresSafeArea()
+                    Image("HomepageBackground")
+                        .resizable() // Make the image resizable
+                        .aspectRatio(contentMode: .fill) // Fill the aspect ratio
+                        .edgesIgnoringSafeArea(.all) // Ignore the safe area to fill the whole screen
+
+//                        .ignoresSafeArea()
+                    
+                    
                     VStack(spacing: 10){
                         Image("NotLikeOherGirls")
                             .resizable()
@@ -48,16 +56,40 @@ struct HomepageView: View {
                                 .foregroundColor(toggleColor).cornerRadius(20))
                             .font(.system(size: 30, weight: .medium))
                             .bold()
+                            .padding(.bottom, 30)
+                        HStack{
+                            NavigationLink(destination: YouAre()){
+                                LeftArrowShape()
+                                    .frame(width: 50, height: 30)
+                                    .foregroundColor(toggleColor)
+                                    .cornerRadius(10)
+                                
+                                
+                            }
+                            .padding(.trailing, 90)
+                            
+                            
+                            NavigationLink(destination: IntroMood()){
+                                RightArrowShape()
+                                    .frame(width: 50, height: 30)
+                                    .foregroundColor(toggleColor)
+                                    .cornerRadius(10)
+                            }
+                            .padding(.leading, 90)
+                        }
+                        .padding(.bottom, 30)
                         
                     }//vstack
                     NavigationLink(destination: IntroMood(), isActive: $isShowingDestinationView) {
                         EmptyView()
                     }//navigationlink
+                    
                 
                                             
                     
                 }//zstack
                 .background(NavigationLink("", destination: IntroMood()).hidden())
+                
             }//geometryreader
             .onAppear {
                 withAnimation(Animation.easeInOut(duration: 1).repeatForever()) {
@@ -70,6 +102,51 @@ struct HomepageView: View {
     func SourceMood(){
                  }
 }
+
+struct Arrow: View {
+    var toggleColor: Color
+    var body: some View{
+        Rectangle()
+            .frame(width: 30, height: 5)
+            .cornerRadius(10)
+            .foregroundColor(toggleColor)
+    }
+}
+
+struct RightArrowShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        // Start at the top left
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+        // Line to the bottom left
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        // Line to the middle right
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        // Close the path back to the top left
+        path.closeSubpath()
+        
+        return path
+    }
+}
+
+struct LeftArrowShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        // Start at the top right
+        path.move(to: CGPoint(x: rect.maxX, y: rect.minY))
+        // Line to the bottom right
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        // Line to the middle left
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
+        // Close the path back to the top right
+        path.closeSubpath()
+        
+        return path
+    }
+}
+
     
 
     
