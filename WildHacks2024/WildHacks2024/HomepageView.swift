@@ -178,6 +178,6 @@ func OpenFriends() {
     
 struct HomepageView_Previews: PreviewProvider {
     static var previews: some View {
-        HomepageView( spotifyUser: "meefy101", UserPersona: "sad")
+        HomepageView( spotifyUser: "meefy101", UserPersona: "basic")
     }
 }

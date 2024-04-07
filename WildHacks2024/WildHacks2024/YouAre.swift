@@ -43,8 +43,13 @@ struct YouAre: View {
                     .frame(height: 150)
                     .padding()
                 
+//                MoodStats(toggleColor: toggleColor, userPersona: userPersona)
+//                    .frame(height: 100)
+//                    .frame(width: 200, height: 100)
+//                    .padding()
+                
                 MoodStats(toggleColor: toggleColor, userPersona: userPersona)
-                    .frame(height: 100)
+                    .frame(width: 200, height: 100)
                     .padding(.top, 70)
                 
                 Spacer()
@@ -69,6 +74,7 @@ struct TodayMood : View {
                     .padding(.top, 20)
                     .font(.system(size: 15, weight: .bold))
                     .padding(.bottom, -20)
+
 
                 // Image("YourImageNameHere") // Specify your image name
             ScrollView{
