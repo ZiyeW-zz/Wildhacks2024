@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct WildHacks2024App: App {
+    @StateObject var authManager = AuthService()
+    
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        WindowGroup{
+            if authManager.isAuthenticated {
+                HomepageView().environmentObject(authManager)
+            } else {
+                LoginSignUp().environmentObject(authManager)
+            }
         }
     }
 }
+
+    
+    

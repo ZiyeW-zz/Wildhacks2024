@@ -30,8 +30,15 @@ struct IntroMood: View {
                         .bold()
                         .foregroundColor(accentColor)
                         .padding(.top, -10)
+                    
+                    Image("NotLikeOtherGirlsHeadshot")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: geometry.size.width/2, height: geometry.size.height/6 )
+
+                    
                     Text("You have been melancholy lately. What mood would you like to be in today?")
-                        .foregroundColor(toggleColor)
+                        .foregroundColor(.black)
                         .padding(.bottom, 20)
                          
                     let buttonWidth = geometry.size.width * (6.5/8) // Leaves 1/8th margin on each side
@@ -39,7 +46,6 @@ struct IntroMood: View {
                     Group {
                         Button(action: SourceMood) {
                             Text("Boost Confidence")
-                                .foregroundColor(.red)
                         }
                         .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
                         
@@ -85,7 +91,7 @@ struct CustomButtonStyle: ButtonStyle {
             .frame(width: buttonWidth, height: 50, alignment: .center)
             .font(.system(size : 20, weight: .medium))            .background(lighterButtonColor)
             .foregroundColor(.black)
-            .cornerRadius(15)
+            .cornerRadius(30)
             .padding(.bottom, 10)
             .padding(.top, configuration.isPressed ? 5 : 0) // Optional: Change padding on press for a click effect
     }

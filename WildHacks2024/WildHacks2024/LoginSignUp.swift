@@ -13,8 +13,8 @@ struct LoginSignUp: View {
     @State private var password = ""
     @State private var isSignUp = false
     
-    @State private var isActive = false
-    
+    @EnvironmentObject var authManager: AuthService
+
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
     
     let toggleColor = Color(red: 129 / 255, green: 103 / 255, blue: 85 / 255) //darker brown
@@ -22,8 +22,6 @@ struct LoginSignUp: View {
     let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) //bb blue
     
     var body: some View {
-        
-        NavigationView {
             ZStack{
                 backgroundColor // Use the custom color here
                     .ignoresSafeArea()
@@ -67,19 +65,21 @@ struct LoginSignUp: View {
                         .padding(.bottom, 10)
                     
                     if(isSignUp){
-                        NavigationLink(destination: ContentView()) {
+                        
                         Text("Sign Up").frame(width: 150, height: 30, alignment: .center)
                                 .background(accentColor)
                                                     .foregroundColor(.white)
                                                     .cornerRadius(10)
                                             }
-                                        }
+                                        
                     else {
-
-                        Text("Login").frame(width: 150, height: 30, alignment: .center)
-                                                    .background(accentColor)
-                                                    .foregroundColor(.white)
-                                                    .cornerRadius(10)
+                        Button("Login") {
+                            authManager.login(username: email, password: password)
+                        }
+                        .frame(width: 150, height: 30, alignment: .center)
+                        .background(accentColor)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
  
 
@@ -101,8 +101,7 @@ struct LoginSignUp: View {
                 .padding()
             }
             
-        }
-        .navigationBarBackButtonHidden(true)
+
     }
     
     func signUp(email: String, password: String) {
@@ -116,6 +115,4 @@ struct SLoginSignUp_Previews: PreviewProvider {
         LoginSignUp()
     }
 }
-//#Preview {
-//    LoginSignUp()
-//}
+
