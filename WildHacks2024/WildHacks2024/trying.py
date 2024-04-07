@@ -4,10 +4,20 @@ from spotipy.oauth2 import SpotifyOAuth
 import pandas as pd
 import time
 import datetime
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session, redirect
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_sqlalchemy import SQLAlchemy
+
+
+db = SQLAlchemy()
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(80), nullable=False)
 
 app = Flask(__name__)
-#AUTHORIZATION INFO 
+ 
 #AUTHORIZATION INFO
 SPOTIPY_CLIENT_ID = 'e6e30b2f358f4c68bf5e8320c3dca08e'
 SPOTIPY_CLIENT_SECRET= 'f9d93b27421f4f0b815f2d89cdeef703'
@@ -19,6 +29,25 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
                                                client_secret=SPOTIPY_CLIENT_SECRET,
                                                redirect_uri=SPOTIPY_REDIRECT_URI,
                                                scope=SCOPE))
+
+#USER DATA
+user_data = sp.current_user()
+username = user_data['display_name']
+#print(f"Username: {username}")
+
+@app.route('/login')
+def login():
+    auth_url = sp.get_authorize_url()
+    return redirect(auth_url)
+
+@app.route('/spotify_callback')
+def spotify_callback():
+    code = request.args.get('code')
+    token_info = sp.auth_manager.get_access_token(code, as_dict=False)
+    # At this point, the user has been authenticated, and you can use the access token to make authorized calls to the Spotify API.
+    # Redirect the user to another endpoint, e.g., a page that shows their top tracks.
+    return redirect('/get-top-tracks') #change this to the main page
+
 
 #START OF THE USER PERSONA ALGORITHM
 
@@ -126,10 +155,10 @@ for mood, count in mood_counts.items():
 dominant_mood = max(mood_counts, key=mood_counts.get) #could be global variable
 print(f"The dominant mood in the user's music history is: {dominant_mood}")
 
-#API ROUTE FOR THE PERSONA
-@app.route('/get-persona', methods=['GET'])
-def get_persona():
-    return jsonify(dominant_mood), 200
+# #API ROUTE FOR THE PERSONA
+# @app.route('/get-persona', methods=['GET'])
+# def get_persona():
+#     return jsonify(dominant_mood), 200
 
 
 
@@ -160,19 +189,39 @@ def get_recommendations(sp, seed_artists, seed_tracks, dominant_mood):
     for track in recommendations['tracks']:
         track_info = f"{track['name']} by {track['artists'][0]['name']}"
         track_list.append(track_info)
-    #return track_list
+    return track_list
 
 # Using the function to get recommendations (list of strings)
 recommended_tracks = get_recommendations(sp, seed_artists, seed_tracks, dominant_mood) #(list of strings)-could be global variable
-# for track in recommended_tracks:
-#     print(track) # prints the songs
+# print(recommended_tracks)
+
+#API ROUTE FOR THE PERSONA
+@app.route('/get-persona', methods=['GET'])
+def get_persona():
+    return jsonify(dominant_mood), 200
 
 #API ROUTES FOR SONG RECOMMENDATIONS
 @app.route('/get-recommendations', methods=['GET'])
 def get_rec_tracks():
-    return jsonify(recommended_tracks), 200
+    desiredmood = request.args.get('desiredmood')
+    seed_artists = [artist['id'] for artist in top_artists['items']] # could be global variable
+
+    # Assuming combined_track_ids is a list of track IDs
+    seed_tracks = combined_track_ids  # could be global variable
+
+    listOfRecs = get_recommendations(sp, seed_artists, seed_tracks, desiredmood)
+    return jsonify(listOfRecs), 200
+
+if __name__ == "__main__":
+    app.run(debug = True)
 
 
-if __name__=="__main__":
-    app.run(debug=True)
+# @app.route("/get-user/<user_id>")
+# def get_user(user_id):
+#     user_data = {
+#         "user_id": user_id,
+#         "email": "john.doe@example.com",
+#         "persona": "sad"
+# }
 
+#     return jsonify(user_data), 200

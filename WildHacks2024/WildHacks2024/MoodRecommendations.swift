@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MoodRecommendations: View {
     var SelectedMood: String
+    let recommendations: [String]
+
     
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
     
@@ -38,46 +40,15 @@ struct MoodRecommendations: View {
                             .bold()
                             .padding(.top, -20)
                         
-                        
-                        
-                        Group {
-                            Text("Song1")
+                        ForEach(recommendations, id: \.self) { recommendation in
+                            Text(recommendation)
                                 .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            Text("Song1")
-                                .padding()
-                            
-                            
-                            
                         }
+//                        Text(recommendations)
                         
+                        
+                        
+     
                         
                         
                         
@@ -99,5 +70,5 @@ struct MoodRecommendations: View {
 
 #Preview {
     
-    MoodRecommendations(SelectedMood: "happy")
+    MoodRecommendations(SelectedMood: "happy", recommendations: ["Work"])
 }

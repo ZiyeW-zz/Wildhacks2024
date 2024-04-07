@@ -4,180 +4,136 @@
 //
 //  Created by Ziye Wang on 4/6/24.
 //
-
 import SwiftUI
-let lighterButtonColor = Color(red: 180 / 255, green: 220 / 255, blue: 160 / 255) //lighterbutton color, for unselected
 
+let lighterButtonColor = Color(red: 180 / 255, green: 220 / 255, blue: 160 / 255)
 let darkerGreen = Color(red: 150 / 255, green: 190 / 255, blue: 130 / 255)
+
+let moodsList = [
+    "happy": "Blast Powerhouse",
+    "sad": "Soul Searchers",
+    "basic": "(Not) like other girls",
+    "study": "Study Bug",
+    "mixed": "Global Groover"
+]
 
 struct IntroMood: View {
     var userPersona: String
+    @State private var recommendations: [String] = []
+    @State private var activeDestination: String? = nil
     
-    @State private var selectedMood: String? = nil
-    @State private var isNavigationActive = false
+    let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255)
     
-    
-    let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
-    
-    let toggleColor = Color(red: 129 / 255, green: 103 / 255, blue: 85 / 255) //darker brown
-    
-    let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) //bb blue
     var body: some View {
-//        NavigationStack{
-            GeometryReader{ geometry in
-                ZStack{
-                    backgroundColor
-                        .ignoresSafeArea()
-                    VStack(spacing: 10){
-                        HStack{
-                            Text("Hey")
-                                .font(.largeTitle)
-                                .bold()
-                            Text("Meefy101")
-                                .font(.largeTitle)
-                                .bold()
-                                .foregroundColor(darkerGreen)
-                            Text(".")
-                                .font(.largeTitle)
-                                .bold()
-                                .padding(.leading, -5)
+        GeometryReader { geometry in
+            ZStack {
+                backgroundColor.ignoresSafeArea()
+                VStack(spacing: 10) {
+                    greetingSection
+                    Image(DeterminePersonaHead(for: userPersona))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: geometry.size.width/2, height: geometry.size.height/4)
+                        .padding(.bottom, -20)
+                        .padding(.top, -20)
+                    moodQuestionSection
+                    
+                    ForEach(Array(moodsList.keys), id: \.self) { moodKey in
+                        Button(action: {
+                            Task {
+                                await fetchRecommendations(forMood: moodKey)
+                            }
+                        }) {
+                            Text(moodsList[moodKey, default: ""])
+                                .frame(width: geometry.size.width * (6.5/8), height: 50, alignment: .center)
+                                .font(.system(size: 20, weight: .medium))
+                                .background(lighterButtonColor)
+                                .foregroundColor(.black)
+                                .cornerRadius(30)
+                                .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+                                .padding(.bottom, 10)
                         }
-//                        .padding(.leading, -70)
-                        Text("What are you in")
-                            .font(.largeTitle)
-                            .bold()
-                        Text("the mood for?")
-                            .font(.largeTitle)
-                            .padding(.top, -15)
-                            .bold()
-                        
-                        
-                        
-                        Image(DeterminePersonaHead(for: userPersona))
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geometry.size.width/2, height: geometry.size.height/4)
-                            .padding(.bottom, -20)
-                            .padding(.top, -20)
-                        
-                        HStack{
-                            Text("You have been in a")
-                            Text(userPersona)
-                            
-                        }
-                        Text("mood recently. Wanna try something new?")
-                            .padding(.top, -10)
-                            .padding(.bottom, 20)
-                        
-                        let buttonWidth = geometry.size.width * (6.5/8) // Leaves 1/8th margin on each side
-                        
-                        Group {
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "happy")) {
-                                Text("Blast Powerhouse")
-                            }
-                            .frame(width: buttonWidth, height: 50, alignment: .center)
-                            .font(.system(size : 20, weight: .medium))            .background(lighterButtonColor)
-                            .foregroundColor(.black)
-                            .cornerRadius(30)
-                            .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-                            .padding(.bottom, 10)
-
-                            
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "sad")) {
-                                Text("Soul Searchers")
-                            }
-                            .frame(width: buttonWidth, height: 50, alignment: .center)
-                            .font(.system(size : 20, weight: .medium))            .background(lighterButtonColor)
-                            .foregroundColor(.black)
-                            .cornerRadius(30)
-                            .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-                            .padding(.bottom, 10)
-                            
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "basic")) {
-                                Text("(Not) like other girls")
-                            }
-                            .frame(width: buttonWidth, height: 50, alignment: .center)
-                            .font(.system(size : 20, weight: .medium))            .background(lighterButtonColor)
-                            .foregroundColor(.black)
-                            .cornerRadius(30)
-                            .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-                            .padding(.bottom, 10)
-                            
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "study")) {
-                                Text("Study Bug")
-                            }
-                            .frame(width: buttonWidth, height: 50, alignment: .center)
-                            .font(.system(size : 20, weight: .medium))            .background(lighterButtonColor)
-                            .foregroundColor(.black)
-                            .cornerRadius(30)
-                            .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-                            .padding(.bottom, 10)
-                            
-                            
-                            NavigationLink(destination: MoodRecommendations(SelectedMood: "mixed")) {
-                                Text("Global Groover")
-                            }
-                            .frame(width: buttonWidth, height: 50, alignment: .center)
-                            .font(.system(size : 20, weight: .medium))            .background(lighterButtonColor)
-                            .foregroundColor(.black)
-                            .cornerRadius(30)
-                            .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-                            .padding(.bottom, 10)
-                            
-                            
-                        }//group
-                        
-                        
-                        
-                        
-                        
-                    }//vstack
-                    .frame(width:geometry.size.width / 1.2)
-                    .padding()
-                }//zstack
-            }//geometryreader
-
-
-//        }//Navigation Stack
-//        .navigationDestination(for: String.self) { mood in
-//            MoodRecommendations(SelectedMood: mood)
-//            
-//        }
-        
-        
+                    }
+                    ForEach(Array(moodsList.keys), id: \.self) { moodKey in
+                         NavigationLink(destination: MoodRecommendations(SelectedMood: moodKey, recommendations: self.recommendations), isActive: Binding(get: {
+                             self.activeDestination == moodKey
+                         }, set: { _ in })) {
+                             EmptyView()
+                         }.hidden()
+                     }
+                 }
+                .frame(width: geometry.size.width / 1.2)
+                .padding()
+            }
         }
-    func SelectedMoodButton() {
-        isNavigationActive = true
     }
-
-}
     
-
+    var greetingSection: some View {
+        HStack {
+            Text("Hey")
+                .font(.largeTitle)
+                .bold()
+            Text("Meefy101")
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(darkerGreen)
+            Text(".")
+                .font(.largeTitle)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
     
-//    struct MoodRecommendations: View {
-//        let selectedMood: String
-//        
-//        var body: some View {
-//            Text("Recommendations for \(selectedMood)")
-//        }
-//    }
-
-
-struct CustomButtonStyle: ButtonStyle {
-    let buttonWidth: CGFloat
-    let buttonColor: Color
+    var personaImageSection: some View {
+        GeometryReader { geometry in
+                Image(DeterminePersonaHead(for: userPersona))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: geometry.size.width/2, height: geometry.size.height/4)
+                    .padding(.bottom, -20)
+                    .padding(.top, -20)
+        }
+    }
     
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .frame(width: buttonWidth, height: 50, alignment: .center)
-            .font(.system(size : 20, weight: .medium))            .background(lighterButtonColor)
-            .foregroundColor(.black)
-            .cornerRadius(30)
-            .padding(.bottom, 10)
-            .padding(.top, configuration.isPressed ? 5 : 0) // Optional: Change padding on press for a click effect
+    var moodQuestionSection: some View {
+        VStack {
+            Text("You have been in a")
+            Text(userPersona)
+            
+            Text("mood recently. Wanna try something new?")
+                .padding(.top, -10)
+                .padding(.bottom, 20)
+        }
+    }
+    
+    func fetchRecommendations(forMood mood: String) async {
+        guard let url = URL(string: "http://127.0.0.1:5000/get-recommendations?desiredmood=\(mood)") else {
+            print("Invalid URL")
+            
+            DispatchQueue.main.async {
+                self.activeDestination = mood
+            }
+            return
+        }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let recommendations = try JSONDecoder().decode([String].self, from: data)
+//            DispatchQueue.main.async {
+//                self.tempPersona = decodedResponse.persona
+//                print("Fetched Persona: \(self.tempPersona)")
+//            }
+            DispatchQueue.main.async {
+                self.recommendations = recommendations
+                print("Reccomendations for the desiredmood=\(mood), is \(self.recommendations)")
+                self.activeDestination = mood
+            }
+        } catch {
+            print("Failed to fetch data: \(error)")
+        }
     }
 }
-    
+
+// Assume MoodRecommendations is properly defined to accept `selectedMood` and `recommendations`.
 
 struct IntroMood_Previews: PreviewProvider {
     static var previews: some View {
