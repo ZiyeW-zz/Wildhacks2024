@@ -11,6 +11,7 @@ let lighterButtonColor = Color(red: 180 / 255, green: 220 / 255, blue: 160 / 255
 let darkerGreen = Color(red: 150 / 255, green: 190 / 255, blue: 130 / 255)
 
 struct IntroMood: View {
+    var userPersona: String
     
     @State private var selectedMood: String? = nil
     @State private var isNavigationActive = false
@@ -42,20 +43,29 @@ struct IntroMood: View {
                                 .padding(.leading, -5)
                         }
                         .padding(.leading, -70)
-                        Text("What are you in the mood for?")
+                        Text("What are you in")
+                            .font(.largeTitle)
+                            .bold()
+                        Text("the mood for?")
                             .font(.largeTitle)
                             .bold()
                         
                         
                         
-                        Image("NotLikeOtherGirlsHeadshot")
+                        Image(DeterminePersonaHead(for: userPersona))
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: geometry.size.width/2, height: geometry.size.height/6 )
+                            .frame(width: geometry.size.width/2, height: geometry.size.height/4)
+                            .padding(.bottom, -20)
+                            .padding(.top, -20)
                         
-                        
-                        Text("You have been melancholy lately. Wanna try something new?")
-                            .foregroundColor(.black)
+                        HStack{
+                            Text("You have been in a")
+                            Text(userPersona)
+                            
+                        }
+                        Text("mood recently. Wanna try something new?")
+                            .padding(.top, -10)
                             .padding(.bottom, 20)
                         
                         let buttonWidth = geometry.size.width * (6.5/8) // Leaves 1/8th margin on each side
@@ -170,6 +180,6 @@ struct CustomButtonStyle: ButtonStyle {
 
 struct IntroMood_Previews: PreviewProvider {
     static var previews: some View {
-        IntroMood()
+        IntroMood(userPersona: "study")
     }
 }

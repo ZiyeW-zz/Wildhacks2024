@@ -11,6 +11,7 @@ struct HomepageView: View {
 //    var authService: AuthService
     
     var spotifyUser: String
+    var UserPersona: String
 
     
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
@@ -51,8 +52,7 @@ struct HomepageView: View {
                                 .padding(.top, -200)
                                 .padding(.leading, -150))
                         
-                        
-                        Image("soulsearch")
+                        Image(DeterminePersona(for: UserPersona))
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                         //                        .frame(width: geometry.size.width, height: geometry.size.height / 2 ) // Adjust the width as needed
@@ -60,12 +60,12 @@ struct HomepageView: View {
                             .offset(y: self.isAnimating ? -10 : 10)
                             .padding(.top, -100)
                         
-                        Text("March Persona")
+                        Text("Your Persona")
                             .foregroundColor(toggleColor)
                             .font(.system(size: 30, weight: .medium))
                             .bold()
 //                            .padding(.top, 30)
-                        Text("Soul Searching")
+                        Text(DeterminePersonaTitle(for: UserPersona))
                             .padding()
                             .foregroundColor(.white)
                             .background(Rectangle()
@@ -74,19 +74,20 @@ struct HomepageView: View {
                             .bold()
                             .padding(.bottom, 30)
                         HStack{
-                            NavigationLink(destination: YouAre(user: spotifyUser)){
-                                LeftArrowShape()
-                                    .frame(width: 50, height: 30)
-                                    .foregroundColor(toggleColor)
-                                    .cornerRadius(10)
-                                Text("Profile")
-                                
-                                
+                            // Corrected usage of NavigationLink on line 78 and similar
+                            NavigationLink(destination: YouAre(user: spotifyUser, userPersona: UserPersona)) {
+                                HStack {
+                                    LeftArrowShape()
+                                        .frame(width: 50, height: 30)
+                                        .foregroundColor(toggleColor)
+                                    Text("Profile")
+                                }
                             }
                             .padding(.trailing, 50)
+
                             
                             
-                            NavigationLink(destination: IntroMood()){
+                            NavigationLink(destination: IntroMood(userPersona: UserPersona)){
                                 Text("Discover Moods")
                                     .frame(width: 70)
                                 RightArrowShape()
@@ -101,7 +102,7 @@ struct HomepageView: View {
 
                         
                     }//vstack
-                    NavigationLink(destination: IntroMood(), isActive: $isShowingDestinationView) {
+                    NavigationLink(destination: IntroMood(userPersona: UserPersona), isActive: $isShowingDestinationView) {
                         EmptyView()
                     }//navigationlink
                     
@@ -109,7 +110,7 @@ struct HomepageView: View {
                                             
                     
                 }//zstack
-                .background(NavigationLink("", destination: IntroMood()).hidden())
+                .background(NavigationLink("", destination: IntroMood(userPersona: UserPersona)).hidden())
                 
             }//geometryreader
             .onAppear {
@@ -177,6 +178,6 @@ func OpenFriends() {
     
 struct HomepageView_Previews: PreviewProvider {
     static var previews: some View {
-        HomepageView( spotifyUser: "meefy101")
+        HomepageView( spotifyUser: "meefy101", UserPersona: "sad")
     }
 }

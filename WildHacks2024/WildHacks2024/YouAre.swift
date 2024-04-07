@@ -10,17 +10,18 @@ import SwiftUI
 struct YouAre: View {
     
     var user : String
+    var userPersona: String
     let backgroundColor = Color(red: 243 / 255, green: 229 / 255, blue: 202 / 255) // Beige
     let toggleColor = Color(red: 129 / 255, green: 103 / 255, blue: 85 / 255) // Darker brown
     let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) // BB blue
 
     var body: some View {
         VStack {
-            Image("NotLikeOtherGirlsHeadshot")
+            Image(DeterminePersonaHead(for: userPersona))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .background(Circle().foregroundColor(backgroundColor))
-                .frame(width: 200, height: 200) // Adjust the frame as needed
+                .frame(width: 250, height: 250) // Adjust the frame as needed
                 .padding(.top, 20)
 
             Text("@meefy101")
@@ -40,7 +41,7 @@ struct YouAre: View {
                 .frame(width: 200, height: 100)
                 .padding()
 
-            MoodStats(toggleColor: toggleColor)
+            MoodStats(toggleColor: toggleColor, userPersona: userPersona)
                 .frame(width: 200, height: 100)
                 .padding(.top, 70)
             
@@ -51,25 +52,8 @@ struct YouAre: View {
 
     }//body
     
-    struct MoodStats : View {
-        var toggleColor: Color
-        
-        var body: some View {
-            NavigationLink(destination: HomepageView(spotifyUser: "meefy101")){
-    //            Text("Today's Mood")
-    //                .padding(.top, 20)
-    //            // Image("YourImageNameHere") // Specify your image name
-    //            Circle()
-    //                .foregroundColor(.brown)
-    //                .frame(width: 100, height: 100)
-    //            Text("VibeyBear")
-            }
-            .frame(width: 350, height: 200) // Set the frame for the VStack to match the intended background size
-            .background(Rectangle().foregroundColor(toggleColor)) // Apply the background
-            .cornerRadius(15)
-            .shadow(radius: 3)
-        }
-    }
+
+
 }
 
 struct TodayMood : View {
@@ -92,21 +76,35 @@ struct TodayMood : View {
     }
 }
 
-struct MoodStats : View {
+//struct MoodStats : View {
+//    var toggleColor: Color
+//    
+//    var body: some View {
+//        NavigationLink(destination: HomepageView(spotifyUser: "meefy101")){
+////            Text("Today's Mood")
+////                .padding(.top, 20)
+////            // Image("YourImageNameHere") // Specify your image name
+////            Circle()
+////                .foregroundColor(.brown)
+////                .frame(width: 100, height: 100)
+////            Text("VibeyBear")
+//        }
+//        .frame(width: 350, height: 200) // Set the frame for the VStack to match the intended background size
+//        .background(Rectangle().foregroundColor(toggleColor)) // Apply the background
+//        .cornerRadius(15)
+//        .shadow(radius: 3)
+//    }
+//}
+struct MoodStats: View {
     var toggleColor: Color
-    
+    var userPersona: String // Add this line
+
     var body: some View {
-        NavigationLink(destination: HomepageView(spotifyUser: "meefy101")){
-//            Text("Today's Mood")
-//                .padding(.top, 20)
-//            // Image("YourImageNameHere") // Specify your image name
-//            Circle()
-//                .foregroundColor(.brown)
-//                .frame(width: 100, height: 100)
-//            Text("VibeyBear")
+        NavigationLink(destination: HomepageView(spotifyUser: "meefy101", UserPersona: userPersona)) {
+            // Your content
         }
-        .frame(width: 350, height: 200) // Set the frame for the VStack to match the intended background size
-        .background(Rectangle().foregroundColor(toggleColor)) // Apply the background
+        .frame(width: 350, height: 200)
+        .background(Rectangle().foregroundColor(toggleColor))
         .cornerRadius(15)
         .shadow(radius: 3)
     }
@@ -117,6 +115,6 @@ struct MoodStats : View {
 
 struct YouAre_Previews: PreviewProvider {
     static var previews: some View {
-        YouAre(user: "meefy101")
+        YouAre(user: "meefy101", userPersona: "happy")
     }
 }

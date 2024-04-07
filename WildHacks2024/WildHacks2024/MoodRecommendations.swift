@@ -27,16 +27,16 @@ struct MoodRecommendations: View {
                     VStack(spacing: 10){
                         
                         
-                        Image("NotLikeOtherGirlsHeadshot")
+                        Image(DeterminePersonaHead(for: SelectedMood))
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: geometry.size.width/2, height: geometry.size.height/5 )
+                            .frame(width: geometry.size.width/2, height: geometry.size.height/4 )
                         
                         
-                        Text(SelectedMood)
+                        Text(DeterminePersonaTitle(for: SelectedMood))
                             .font(.largeTitle)
                             .bold()
-                            .padding(.top, -10)
+                            .padding(.top, -20)
                         
                         
                         
@@ -99,5 +99,5 @@ struct MoodRecommendations: View {
 
 #Preview {
     
-    MoodRecommendations(SelectedMood: "Blast Powerhouse")
+    MoodRecommendations(SelectedMood: "happy")
 }
