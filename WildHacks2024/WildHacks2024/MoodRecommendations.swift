@@ -70,5 +70,5 @@ struct MoodRecommendations: View {
 
 #Preview {
     
-    MoodRecommendations(SelectedMood: "happy", recommendations: ["Work"])
+    MoodRecommendations(SelectedMood: "happy", recommendations: ["Work", "song2", "song3"])
 }

@@ -14,7 +14,7 @@ func DeterminePersona(for persona: String) -> String {
     case "sad":
         return "soulsearch"
     case "basic":
-        return "NotLikeOherGirls"
+        return "Othergirls"
     case "study":
         return "Studybug"
     case "mixed":

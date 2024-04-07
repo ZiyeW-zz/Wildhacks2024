@@ -55,7 +55,7 @@ struct IntroMood: View {
                         }
                     }
                     ForEach(Array(moodsList.keys), id: \.self) { moodKey in
-                         NavigationLink(destination: MoodRecommendations(SelectedMood: moodKey, recommendations: self.recommendations), isActive: Binding(get: {
+                         NavigationLink(destination: MoodRecommendations(SelectedMood: moodKey, recommendations: recommendations), isActive: Binding(get: {
                              self.activeDestination == moodKey
                          }, set: { _ in })) {
                              EmptyView()
