@@ -1,10 +1,15 @@
 import requests
-import spotipy 
+import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import pandas as pd
 import time
 import datetime
+from flask import Flask, request, jsonify
 
+#Our API is started
+app = Flask(__name__)
+
+#AUTHORIZATION INFO 
 #AUTHORIZATION INFO
 SPOTIPY_CLIENT_ID = 'e6e30b2f358f4c68bf5e8320c3dca08e'
 SPOTIPY_CLIENT_SECRET= 'f9d93b27421f4f0b815f2d89cdeef703'
@@ -18,10 +23,11 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
                                                scope=SCOPE))
 
 #START OF THE USER PERSONA ALGORITHM
+
 #PULL USER INFO -- Top Tracks and Top Artists
-#Testing... only pulling the top 50 tracks over 4 weeks for the user
+#Fetch user's top tracks over a 4 week period 
 top_tracks_short = sp.current_user_top_tracks(limit=50, offset=0, time_range="short_term")
-#print(top_tracks_short)
+
 
 #Fetch user's recently played tracks
 recently_played = sp.current_user_recently_played(limit=50, after=None, before=None) #after/before args might be omitted
@@ -29,30 +35,38 @@ recently_played = sp.current_user_recently_played(limit=50, after=None, before=N
 # Fetch user's top artists
 top_artists = sp.current_user_top_artists(limit=10, offset=0, time_range="short_term")
 
-# Print the top artists
-#for idx, artist in enumerate(top_artists['items']):
-#   print(f"{idx+1}. {artist['name']} - {artist['genres']}")
-
 # Fetch track IDs from top_tracks_short and recently_played
 track_ids = [track['id'] for track in top_tracks_short['items']]
 track_ids2 = [item['track']['id'] for item in recently_played['items']]
 combined_track_ids = track_ids + track_ids2
 
-# Fetch audio features for these track IDs
-audio_features = sp.audio_features(combined_track_ids)
+#API ROUTES FOR THE ABOVE USER DATA
+@app.route('/get-top-tracks', methods=['GET'])
+#GETS user's top tracks
+def get_tracks():
+    return jsonify(top_tracks_short), 200
+
+@app.route('/get-top-artists', methods=['GET'])
+#GETS user's top artists
+def get_artists():
+    return jsonify(top_artists), 200
+
+@app.route('/get-recently-played', methods=['GET'])
+#GETS user's recently played tracks
+def get_recently_played():
+    return jsonify(recently_played), 200
+
+@app.route('/get-track-ids', methods=['GET'])
+#GETS track ids for recent and top tracks
+def get_track_ids():
+    return jsonify(combined_track_ids), 200
+
+
+#PULL AUDIO FEATURES AND ANALYZE TO INFER MOOD
 
 # Analyze audio features to infer mood
-# Here we simply print the valence, but you could perform more sophisticated analysis
-#for feature in audio_features:
- #   print(f"Track ID: {feature['id']} - Valence: {feature['valence']}, Energy: {feature['energy']}, Danceability: {feature['danceability']}")
-
-# Remember to handle None responses in audio_features and other edge cases in your final code
-
-#Audio features: valence (0-1) - happiness, energy
-
 #audio_features is a list of features for each track
 audio_features = sp.audio_features(combined_track_ids)
-#print(audio_features[1])
 
 # Initialize counters for each mood
 mood_counts = {'happy': 0, 'sad': 0, 'basic': 0, 'study': 0, 'mixed': 0}
@@ -66,7 +80,7 @@ for feature in audio_features:
         tempo = feature['tempo']
         lyrics = feature['instrumentalness']
         #popular = feature['popularity']
-        
+
         # Categorize based on the simplified criteria
         if valence > 0.7 and energy > 0.5:
             mood = 'happy'
@@ -78,7 +92,7 @@ for feature in audio_features:
             mood = 'study'
         else:
             mood = 'mixed'  # Use this for tracks that don't fit neatly into any category
-        
+
         mood_counts[mood] = mood_counts.get(mood, 0) + 1
 
 # Now, let's find out the dominant mood
@@ -87,10 +101,15 @@ print("Mood Distribution:")
 for mood, count in mood_counts.items():
     percentage = (count / total_tracks) * 100
     print(f"{mood}: {percentage:.2f}%")
-
+          
 # To categorize the overall music history mood:
 dominant_mood = max(mood_counts, key=mood_counts.get) #could be global variable
 print(f"The dominant mood in the user's music history is: {dominant_mood}")
+
+#API ROUTE FOR THE PERSONA
+@app.route('/get-persona', methods=['GET'])
+def get_persona():
+    return jsonify(dominant_mood), 200
 
 
 #RECOMMENDATIONS ALGORITHM BELOW
@@ -115,16 +134,19 @@ def get_recommendations(sp, seed_artists, seed_tracks, dominant_mood):
     }
     criteria = mood_to_criteria.get(dominant_mood, {}) #looks for songs that fit specified attributes   
     recommendations = sp.recommendations(seed_artists=seed_artists, seed_tracks=seed_tracks, limit=15, **criteria)
-    
+
     track_list = [] #puts the recommendations into a list
     for track in recommendations['tracks']:
         track_info = f"{track['name']} by {track['artists'][0]['name']}"
         track_list.append(track_info)
-    
-    return track_list
+    #return track_list
 
 # Using the function to get recommendations (list of strings)
 recommended_tracks = get_recommendations(sp, seed_artists, seed_tracks, dominant_mood) #(list of strings)-could be global variable
 for track in recommended_tracks:
     print(track) # prints the songs
 
+#API ROUTES FOR SONG RECOMMENDATIONS
+@app.route('/get-recommendations', methods=['GET'])
+def get_rec_tracks():
+    return jsonify(recommended_tracks), 200

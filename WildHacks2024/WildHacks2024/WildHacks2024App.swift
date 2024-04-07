@@ -8,42 +8,57 @@
 import SwiftUI
 
 @main
+
+
+
 struct WildHacks2024App: App {
     @StateObject var authManager = AuthService()
     @State private var tempUser = "meefy101"
     @State private var tempPersona = "study"
-
+    
     var body: some Scene {
         WindowGroup {
             APIConnection(authManager: authManager, tempUser: tempUser, tempPersona: $tempPersona)
                 .task {
                     await fetchPersonaData()
-                    print("After fetchPersonaData, tempUser is: \(tempUser)")
-
+                    print("After fetchPersonaData, tempPersona is: \(tempPersona)")
+                    
                 }
         }
     }
+    struct UserResponse: Codable {
+        var user_id: String
+        var email: String
+        var persona: String
+    }
     
     func fetchPersonaData() async {
-        guard let url = URL(string: "http://127.0.0.1:9090/get-persona") else {
+        guard let url = URL(string: "http://127.0.0.1:5000/get-user/123") else {
             print("Invalid URL")
             return
         }
+    
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            // Convert data to a string
-            if let personaString = String(data: data, encoding: .utf8) {
-                DispatchQueue.main.async {
-                    // Update the state variable
-                    self.tempPersona = personaString
-                    // Debug print to verify
-                    print("Fetched Persona: \(personaString)")
-                }
+            
+            // For debugging: print the received raw data as a string.
+            if let rawDataString = String(data: data, encoding: .utf8) {
+                print("Received raw data: \(rawDataString)")
             }
-        } catch {
-            print("Request failed with error: \(error)")
+            
+            // Decode the JSON data into your Swift struct.
+            let decodedResponse = try JSONDecoder().decode(UserResponse.self, from: data)
+            
+            DispatchQueue.main.async {
+                self.tempPersona = decodedResponse.persona
+                print("Fetched Persona: \(self.tempPersona)")
+            }
         }
+        catch {
+                print("Request failed with error: \(error)")
+            }
+
     }
 }
 
@@ -62,6 +77,7 @@ struct APIConnection: View {
         }
     }
 }
+
 
 //import SwiftUI
 //
