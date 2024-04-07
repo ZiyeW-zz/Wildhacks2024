@@ -7,79 +7,114 @@
 
 import SwiftUI
 
+let lightGreen = Color(red: 180 / 255, green: 220 / 255, blue: 160 / 255) //lighterbutton color, for unselected
+
+let darkishGreen = Color(red: 150 / 255, green: 190 / 255, blue: 130 / 255)
+
+
 struct LoginSignUp: View {
     
     @State private var email = ""
     @State private var password = ""
     @State private var isSignUp = false
     
-    @State private var isActive = false
-    
+    @EnvironmentObject var authManager: AuthService
+
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
     
     let toggleColor = Color(red: 129 / 255, green: 103 / 255, blue: 85 / 255) //darker brown
     
+    
     let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) //bb blue
     
     var body: some View {
-        
-        NavigationView {
             ZStack{
                 backgroundColor // Use the custom color here
                     .ignoresSafeArea()
                 
                 VStack{
                     if isSignUp {
-                        Text("Sign Up")
+                        Text("JOIN US")
                             .font(.largeTitle)
                             .bold()
                             .padding()
-                            .foregroundColor(backgroundColor)
+                            .foregroundColor(toggleColor)
+                            .padding(.top, -110)
+
+                        Text("Sign Up")
+                            .font(.title)
+                            .fontWeight(.regular)
+                            .bold()
+                            .padding()
+                            .foregroundColor(toggleColor)
+                            .padding(.top, -80)
+
                     }
                     else {
-                        Text("Login")
+                        Text("WELCOME")
                             .font(.largeTitle)
                             .bold()
                             .padding()
-                            .foregroundColor(backgroundColor)
+                            .foregroundColor(toggleColor)
+                            .padding(.top, -110)
+                        Text("Sign In")
+                            .font(.title)
+                            .fontWeight(.regular)
+                            .bold()
+                            .padding()
+                            .foregroundColor(toggleColor)
+                            .padding(.top, -80)
+
                     }
-                    Text("Email").padding(.horizontal, -120)
+                    Text("E-mail address").padding(.horizontal, -165)
                         .padding(.bottom, -100)
-                        .foregroundColor(Color.white)
+                        .foregroundColor(toggleColor)
                         .font(.system(size: 15))
                     TextField("", text: $email)
-                        .padding()
-                        .frame(width:250, height:50)
-                        .overlay(Rectangle().foregroundColor(Color.white).frame(height: 1).padding(.top, 5), alignment: .bottomLeading)
+                        .padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
+                        .frame(width:330, height:40)
+                        .background(Color.clear)
+                        .overlay(RoundedRectangle(cornerRadius: 10) // Adjust corner radius as needed
+                            .stroke(toggleColor, lineWidth: 1) // White stroke with a line width of 1
+                    )
                         .cornerRadius(10)
-                        .padding(.bottom, 5)
+                        .padding(.top, 15)
                     
-                    Text("Password").padding(.horizontal, -120)
+                    Text("Password").padding(.horizontal, -165)
                         .padding(.bottom, -100)
                         .padding(.top, 10)
-                        .foregroundColor(Color.white)
+                        .foregroundColor(toggleColor)
                         .font(.system(size: 15))
                     SecureField("", text: $password)
-                        .padding()
-                        .frame(width:250, height:50)
-                        .overlay(Rectangle().foregroundColor(Color.white).frame(height: 1).padding(.top, 5), alignment: .bottomLeading)
+                        .padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
+                        .frame(width:330, height:40)
+                        .background(Color.clear)
+                        .overlay(RoundedRectangle(cornerRadius: 10) // Adjust corner radius as needed
+                            .stroke(toggleColor, lineWidth: 1) // White stroke with a line width of 1
+                    )
                         .cornerRadius(10)
-                        .padding(.bottom, 10)
+                        .padding(.top, 15)
                     
                     if(isSignUp){
-                        NavigationLink(destination: ContentView()) {
-                        Text("Sign Up").frame(width: 150, height: 30, alignment: .center)
-                                .background(accentColor)
-                                                    .foregroundColor(.white)
+                        
+                        Text("Sign Up").frame(width: 330, height: 40, alignment: .center)
+                                .background(darkishGreen)
+                                                    .foregroundColor(backgroundColor)
                                                     .cornerRadius(10)
-                                            }
-                                        }
-                    else {
+                                                    .padding(.top, 20)
 
-                        Text("Login").frame(width: 150, height: 30, alignment: .center)
-                                                    .background(accentColor)
-                                                    .foregroundColor(.white)
-                                                    .cornerRadius(10)
+                                            }
+                                        
+                    else {
+                        Button("Log In") {
+                            authManager.login(username: email, password: password)
+                        }
+                        .frame(width:330, height:40, alignment: .center)
+                        .background(darkishGreen)
+                        .foregroundColor(backgroundColor)
+                        .cornerRadius(10)
+                        .padding(.top, 20)
+
                     }
  
 
@@ -87,22 +122,21 @@ struct LoginSignUp: View {
                     Button(action: {
                         isSignUp.toggle()
                     }) {
-                        Text(isSignUp ? "Already have an account? Login!" : "Don't have an account? Sign Up!")
+                        Text(isSignUp ? "Already have an account? Log In!" : "Don't have an account? Sign Up!")
                             .font(.system(size: 12))
-                            .foregroundColor(accentColor)
-                            .padding(.bottom, 20)
+                            .foregroundColor(toggleColor)
+                            .padding(.top, 1)
                     }
                 }
                 .padding()
                 .background(Rectangle()
-                    .foregroundColor(toggleColor)
+                    .foregroundColor(Color.clear)
                     .cornerRadius(15)
-                    .shadow(radius: 15))
+                    .shadow(radius: 5))
                 .padding()
             }
             
-        }
-        .navigationBarBackButtonHidden(true)
+
     }
     
     func signUp(email: String, password: String) {

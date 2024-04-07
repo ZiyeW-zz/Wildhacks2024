@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BE3B2EA2BC1D87B005BE7E1 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3B2E92BC1D87B005BE7E1 /* HomepageView.swift */; };
+		0BE3B2EE2BC2039B005BE7E1 /* YouAre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3B2ED2BC2039B005BE7E1 /* YouAre.swift */; };
+		0BE3B2F42BC20B9C005BE7E1 /* AuthClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3B2F32BC20B9C005BE7E1 /* AuthClass.swift */; };
+		0BE3B2F82BC250AF005BE7E1 /* RecommendedMixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3B2F72BC250AF005BE7E1 /* RecommendedMixes.swift */; };
+		0BE3B2FC2BC254E0005BE7E1 /* MoodRecommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3B2FB2BC254E0005BE7E1 /* MoodRecommendations.swift */; };
+		0BE3B2FE2BC29707005BE7E1 /* DeterminePersona.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE3B2FD2BC29707005BE7E1 /* DeterminePersona.swift */; };
 		6872160A2BC1B982006636B2 /* LoginSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687216092BC1B982006636B2 /* LoginSignUp.swift */; };
 		687642D12BBBA68900FA58E6 /* WildHacks2024App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687642D02BBBA68900FA58E6 /* WildHacks2024App.swift */; };
 		687642D32BBBA68900FA58E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687642D22BBBA68900FA58E6 /* ContentView.swift */; };
@@ -36,6 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0BE3B2E92BC1D87B005BE7E1 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
+		0BE3B2ED2BC2039B005BE7E1 /* YouAre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAre.swift; sourceTree = "<group>"; };
+		0BE3B2F32BC20B9C005BE7E1 /* AuthClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClass.swift; sourceTree = "<group>"; };
+		0BE3B2F72BC250AF005BE7E1 /* RecommendedMixes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedMixes.swift; sourceTree = "<group>"; };
+		0BE3B2FB2BC254E0005BE7E1 /* MoodRecommendations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodRecommendations.swift; sourceTree = "<group>"; };
+		0BE3B2FD2BC29707005BE7E1 /* DeterminePersona.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeterminePersona.swift; sourceTree = "<group>"; };
 		687216092BC1B982006636B2 /* LoginSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUp.swift; sourceTree = "<group>"; };
 		687642CD2BBBA68900FA58E6 /* WildHacks2024.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WildHacks2024.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		687642D02BBBA68900FA58E6 /* WildHacks2024App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildHacks2024App.swift; sourceTree = "<group>"; };
@@ -101,7 +113,13 @@
 				687642D02BBBA68900FA58E6 /* WildHacks2024App.swift */,
 				687642D22BBBA68900FA58E6 /* ContentView.swift */,
 				687216092BC1B982006636B2 /* LoginSignUp.swift */,
+				0BE3B2F32BC20B9C005BE7E1 /* AuthClass.swift */,
+				0BE3B2ED2BC2039B005BE7E1 /* YouAre.swift */,
+				0BE3B2FD2BC29707005BE7E1 /* DeterminePersona.swift */,
+				0BE3B2F72BC250AF005BE7E1 /* RecommendedMixes.swift */,
+				0BE3B2E92BC1D87B005BE7E1 /* HomepageView.swift */,
 				68E78A9C2BC1BF9900C0C421 /* IntroMood.swift */,
+				0BE3B2FB2BC254E0005BE7E1 /* MoodRecommendations.swift */,
 				687642D42BBBA68D00FA58E6 /* Assets.xcassets */,
 				687642D62BBBA68D00FA58E6 /* Preview Content */,
 			);
@@ -264,8 +282,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				687642D32BBBA68900FA58E6 /* ContentView.swift in Sources */,
+				0BE3B2F42BC20B9C005BE7E1 /* AuthClass.swift in Sources */,
+				0BE3B2F82BC250AF005BE7E1 /* RecommendedMixes.swift in Sources */,
 				68E78A9D2BC1BF9900C0C421 /* IntroMood.swift in Sources */,
+				0BE3B2FC2BC254E0005BE7E1 /* MoodRecommendations.swift in Sources */,
+				0BE3B2EA2BC1D87B005BE7E1 /* HomepageView.swift in Sources */,
 				687642D12BBBA68900FA58E6 /* WildHacks2024App.swift in Sources */,
+				0BE3B2EE2BC2039B005BE7E1 /* YouAre.swift in Sources */,
+				0BE3B2FE2BC29707005BE7E1 /* DeterminePersona.swift in Sources */,
 				6872160A2BC1B982006636B2 /* LoginSignUp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
