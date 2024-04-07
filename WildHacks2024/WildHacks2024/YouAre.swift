@@ -40,8 +40,13 @@ struct YouAre: View {
                     .padding(.bottom, 30)
                 
                 TodayMood(backgroundColor: backgroundColor)
-                    .frame(width: 200, height: 100)
+                    .frame(height: 150)
                     .padding()
+                
+//                MoodStats(toggleColor: toggleColor, userPersona: userPersona)
+//                    .frame(height: 100)
+//                    .frame(width: 200, height: 100)
+//                    .padding()
                 
                 MoodStats(toggleColor: toggleColor, userPersona: userPersona)
                     .frame(width: 200, height: 100)
@@ -68,6 +73,9 @@ struct TodayMood : View {
                 Text("Collected Personas")
                     .padding(.top, 20)
                     .font(.system(size: 15, weight: .bold))
+                    .padding(.bottom, -20)
+
+
                 // Image("YourImageNameHere") // Specify your image name
             ScrollView{
                 Image("ListOfHEads")
@@ -78,7 +86,7 @@ struct TodayMood : View {
             .padding()
                 
         }
-        .frame(width: 350, height: 150) // Set the frame for the VStack to match the intended background size
+        .frame(width: 350, height: 200) // Set the frame for the VStack to match the intended background size
         .background(Rectangle().foregroundColor(backgroundColor)) // Apply the background
         .cornerRadius(15)
         .shadow(radius: 3)

@@ -64,6 +64,27 @@ struct LoginSignUp: View {
                             .padding()
                             .foregroundColor(toggleColor)
                             .padding(.top, -80)
+                        
+                        Button(action: {}) {
+                            HStack {
+                                Image("SpotifyLogo")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 24) // Adjust size as needed
+                                Text("Open in Spotify")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                            }
+                            .padding()
+                            .background(Color(red: 129/255, green: 189/255, blue: 114/255)) // Spotify color
+                            .cornerRadius(8)
+                        }
+
+                        
+                        Text("---------------------OR---------------------")
+                            .padding(.bottom, 10)
+                            .foregroundColor(toggleColor)
+                            .font(.system(size: 15))
 
                     }
                     Text("E-mail address").padding(.horizontal, -165)
