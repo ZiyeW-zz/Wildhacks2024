@@ -10,7 +10,7 @@ import SwiftUI
 struct MoodRecommendations: View {
     var SelectedMood: String
     let recommendations: [String]
-
+    
     
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
     
@@ -19,13 +19,13 @@ struct MoodRecommendations: View {
     let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) //bb blue
     var body: some View {
         
-            GeometryReader{ geometry in
+        GeometryReader{ geometry in
+            
+            ZStack{
                 
-                ZStack{
-                    
-                    backgroundColor
-                        .ignoresSafeArea()
-                    ScrollView{
+                backgroundColor
+                    .ignoresSafeArea()
+                ScrollView{
                     VStack(spacing: 10){
                         
                         
@@ -47,7 +47,7 @@ struct MoodRecommendations: View {
                             .bold()
                             .padding(.top, -10)
                             .foregroundColor(toggleColor)
-//                            .frame(.alginment: left)
+                        //                            .frame(.alginment: left)
                         VStack (spacing: 15){
                             ForEach(recommendations, id: \.self) { recommendation in
                                 Text(recommendation)
@@ -55,35 +55,33 @@ struct MoodRecommendations: View {
                                     .foregroundColor(toggleColor)
                                     .font(.system(size: 20, weight: .medium))
                                     .bold()
+                                //
+                                
+                                    .padding(.top, 20)
+                                    .padding(.bottom, 10)
                             }
-                            .padding(.top, 20)
-                            .padding(.bottom, 10)
-                        }
-//                        .background(Rectangle()
-//                            .foregroundColor(.white)
-//                            .frame(width: 350)
-//                            .cornerRadius(15)
-//                            .shadow(radius: 3)
-//                                    )
-//                        .padding(.top, 100)
-                        
-                        
-                        
-     
-                        
-                        
-                        
-                        
-                    }//vstack
-                    .frame(width:geometry.size.width / 1.2)
-                    .padding()
-                }//zstack
-            }//geometryreader
-        }//scrollView
-       
-    }//body
+
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        }//vstack
+                        .frame(width:geometry.size.width / 1.2)
+                        .padding()
+                    }//zstack
+                }//geometryreader
+            }//scrollView
+            
+        }//body
+        
+    
+    }
     func SourceMood(){
-                 }
+    }
 }
 
 
