@@ -16,38 +16,41 @@ struct YouAre: View {
     let accentColor = Color(red: 178 / 255, green: 198 / 255, blue: 249 / 255) // BB blue
 
     var body: some View {
-        VStack {
-            Image(DeterminePersonaHead(for: userPersona))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .background(Circle().foregroundColor(backgroundColor))
-                .frame(width: 250, height: 250) // Adjust the frame as needed
-                .padding(.top, 20)
-
-            Text("@meefy101")
-                .foregroundColor(toggleColor)
-                .padding(.bottom, 5)
-
-            Text("Lacy")
-                .font(.system(size: 20))
-                .frame(width: 100, height: 5)
-                .foregroundColor(.white)
-                .padding()
-                .background(toggleColor)
-                .cornerRadius(15)
-                .padding(.bottom, 30)
-
-            TodayMood(backgroundColor: backgroundColor)
-                .frame(width: 200, height: 100)
-                .padding()
-
-            MoodStats(toggleColor: toggleColor, userPersona: userPersona)
-                .frame(width: 200, height: 100)
-                .padding(.top, 70)
+        ScrollView{
             
-            Spacer()
-
-        } //Vstack
+            VStack {
+                Image(DeterminePersonaHead(for: userPersona))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .background(Circle().foregroundColor(backgroundColor))
+                    .frame(width: 250, height: 250) // Adjust the frame as needed
+                    .padding(.top, 20)
+                
+                Text("@meefy101")
+                    .foregroundColor(toggleColor)
+                    .padding(.bottom, 5)
+                
+                Text("Currently listening: Lacy")
+                    .font(.system(size: 15))
+                    .frame(width: 200, height: 5)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(toggleColor)
+                    .cornerRadius(15)
+                    .padding(.bottom, 30)
+                
+                TodayMood(backgroundColor: backgroundColor)
+                    .frame(height: 150)
+                    .padding()
+                
+                MoodStats(toggleColor: toggleColor, userPersona: userPersona)
+                    .frame(height: 100)
+                    .padding(.top, 70)
+                
+                Spacer()
+                
+            } //Vstack
+        }
         
 
     }//body
@@ -61,40 +64,30 @@ struct TodayMood : View {
     
     var body: some View {
         VStack {
-            Text("Today's Mood")
-                .padding(.top, 20)
-            // Image("YourImageNameHere") // Specify your image name
-            Circle()
-                .foregroundColor(.brown)
-                .frame(width: 100, height: 100)
-            Text("VibeyBear")
+            
+                Text("Collected Personas")
+                    .padding(.top, 20)
+                    .font(.system(size: 15, weight: .bold))
+                    .padding(.bottom, -20)
+
+                // Image("YourImageNameHere") // Specify your image name
+            ScrollView{
+                Image("ListOfHEads")
+                    .resizable()
+                    .scaledToFit()
+//                    .frame(width: 250)
+            }
+            .padding()
+                
         }
-        .frame(width: 350, height: 150) // Set the frame for the VStack to match the intended background size
+        .frame(width: 350, height: 200) // Set the frame for the VStack to match the intended background size
         .background(Rectangle().foregroundColor(backgroundColor)) // Apply the background
         .cornerRadius(15)
         .shadow(radius: 3)
+        .padding()
     }
 }
 
-//struct MoodStats : View {
-//    var toggleColor: Color
-//    
-//    var body: some View {
-//        NavigationLink(destination: HomepageView(spotifyUser: "meefy101")){
-////            Text("Today's Mood")
-////                .padding(.top, 20)
-////            // Image("YourImageNameHere") // Specify your image name
-////            Circle()
-////                .foregroundColor(.brown)
-////                .frame(width: 100, height: 100)
-////            Text("VibeyBear")
-//        }
-//        .frame(width: 350, height: 200) // Set the frame for the VStack to match the intended background size
-//        .background(Rectangle().foregroundColor(toggleColor)) // Apply the background
-//        .cornerRadius(15)
-//        .shadow(radius: 3)
-//    }
-//}
 struct MoodStats: View {
     var toggleColor: Color
     var userPersona: String // Add this line

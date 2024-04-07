@@ -32,19 +32,40 @@ struct MoodRecommendations: View {
                         Image(DeterminePersonaHead(for: SelectedMood))
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: geometry.size.width/2, height: geometry.size.height/4 )
+                            .frame(width: geometry.size.width / 2, height: geometry.size.height/3 )
+                            .padding(.top, -50)
+                            .padding(.bottom, -50)
                         
                         
                         Text(DeterminePersonaTitle(for: SelectedMood))
                             .font(.largeTitle)
                             .bold()
                             .padding(.top, -20)
-                        
-                        ForEach(recommendations, id: \.self) { recommendation in
-                            Text(recommendation)
-                                .padding()
+                            .foregroundColor(toggleColor)
+                        Text("Personalized Mix based on You.")
+                            .font(.system(size: 15))
+                            .bold()
+                            .padding(.top, -10)
+                            .foregroundColor(toggleColor)
+//                            .frame(.alginment: left)
+                        VStack (spacing: 15){
+                            ForEach(recommendations, id: \.self) { recommendation in
+                                Text(recommendation)
+                                //                                .padding()
+                                    .foregroundColor(toggleColor)
+                                    .font(.system(size: 20, weight: .medium))
+                                    .bold()
+                            }
+                            .padding(.top, 20)
+                            .padding(.bottom, 10)
                         }
-//                        Text(recommendations)
+//                        .background(Rectangle()
+//                            .foregroundColor(.white)
+//                            .frame(width: 350)
+//                            .cornerRadius(15)
+//                            .shadow(radius: 3)
+//                                    )
+//                        .padding(.top, 100)
                         
                         
                         
@@ -70,5 +91,5 @@ struct MoodRecommendations: View {
 
 #Preview {
     
-    MoodRecommendations(SelectedMood: "happy", recommendations: ["Work"])
+    MoodRecommendations(SelectedMood: "happy", recommendations: ["Work", "song1", "song2"])
 }
