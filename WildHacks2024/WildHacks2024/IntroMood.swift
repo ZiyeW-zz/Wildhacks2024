@@ -11,6 +11,11 @@ let lighterButtonColor = Color(red: 180 / 255, green: 220 / 255, blue: 160 / 255
 let darkerGreen = Color(red: 150 / 255, green: 190 / 255, blue: 130 / 255)
 
 struct IntroMood: View {
+    
+    @State private var selectedMood: String? = nil
+    @State private var isNavigationActive = false
+
+    
     let backgroundColor = Color(red: 238 / 255, green: 237 / 255, blue: 222 / 255) //beige
     
     let toggleColor = Color(red: 129 / 255, green: 103 / 255, blue: 85 / 255) //darker brown
@@ -19,64 +24,93 @@ struct IntroMood: View {
     var body: some View {
         GeometryReader{ geometry in
             ZStack{
-                let pageWidth = geometry.size.width * (7/8) // Leaves 1/8th margin on each side
                 backgroundColor
                     .ignoresSafeArea()
                 VStack(spacing: 10){
-                    Text("Welcome Back, ")
+                    HStack{
+                        Text("Hey")
+                            .font(.largeTitle)
+                            .bold()
+                        Text("Meefy101")
+                            .font(.largeTitle)
+                            .bold()
+                            .foregroundColor(darkerGreen)
+                        Text(".")
+                            .font(.largeTitle)
+                            .bold()
+                            .padding(.leading, -5)
+                    }
+                    .padding(.leading, -70)
+                    Text("What are you in the mood for?")
                         .font(.largeTitle)
                         .bold()
                     
-                    Text("Meefy101")
-                        .font(.largeTitle)
-                        .bold()
-                        .foregroundColor(darkerGreen)
-                        .padding(.top, -10)
+                    
                     
                     Image("NotLikeOtherGirlsHeadshot")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geometry.size.width/2, height: geometry.size.height/6 )
-
                     
-                    Text("You have been melancholy lately. What mood would you like to be in today?")
+                    
+                    Text("You have been melancholy lately. Wanna try something new?")
                         .foregroundColor(.black)
                         .padding(.bottom, 20)
-                         
+                    
                     let buttonWidth = geometry.size.width * (6.5/8) // Leaves 1/8th margin on each side
                     
                     Group {
-                        Button(action: SourceMood) {
-                            Text("Boost Confidence")
-                        }
-                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
-                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+                        Button("Blast Powerhouse") {
+                            
+                            selectedMood = "Blast Powerhouse"
+//                            NavigationLink(destination: MoodRecommendations(SelectedMood: selectedMood)){
+//                                Text("Help")
+                            
 
+                        }
+//                        .navigationDestination() {
+//                            MoodRecommendations(SelectedMood: selectedMood)
+//                        }
+//                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+//                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+//                        
+//                        
+//                        // Repeat the button with different texts or actions as needed
+//                        Button("Soul Searcher") {
+//                            selectedMood = "Soul Searcher"
+//                        }
+//                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+//                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+//                        
+//                        
+//                        Button("(Not) like other girls") {
+//                            selectedMood = "Blast Powerhouse"
+//                        }
+//                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+//                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+//                        
+//                        Button("Study Bug") {
+//                            selectedMood = "Blast Powerhouse"
+//                            //                            Text("Boost Confidence")
+//                        }
+//                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+//                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+//                        
+//                        
+//                        Button("Global Groover") {
+//                            selectedMood = "Blast Powerhouse"
+//                            //                            Text("Boost Confidence")
+//                        }
+//                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
+//                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
+//                        
                         
-                        // Repeat the button with different texts or actions as needed
-                        Button(action: SourceMood) {
-                            Text("Focus & Study")
-                        }
-                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
-                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-
                         
-                        Button(action: SourceMood) {
-                            Text("2010s Whiplash")
-                        }
-                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
-                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-
-                        
-                        Button(action: SourceMood) {
-                            Text("Something New")
-                        }
-                        .buttonStyle(CustomButtonStyle(buttonWidth: buttonWidth, buttonColor: toggleColor))
-                        .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 2)
-
-
                     }
-
+                    //                    if let selectedMood = selectedMood {
+                    //                        NavigationLink("", destination: MoodRecommendations(SelectedMood: selectedMood))
+                    //                    }
+                    
                     
                     
                     
@@ -86,11 +120,13 @@ struct IntroMood: View {
                 .padding()
             }//zstack
         }//geometryreader
-       
+
+        
+        
     }//body
-    func SourceMood(){
-                 }
+
 }
+
     
 struct CustomButtonStyle: ButtonStyle {
     let buttonWidth: CGFloat
