@@ -195,6 +195,24 @@ def get_recommendations(sp, seed_artists, seed_tracks, dominant_mood):
 recommended_tracks = get_recommendations(sp, seed_artists, seed_tracks, dominant_mood) #(list of strings)-could be global variable
 # print(recommended_tracks)
 
+# Getting the album images for each track in the 
+image_urls = []
+# for track in recommended_tracks: 
+#     results = sp.search(q=track, type="track")
+#     items = results['tracks']['items']
+#     if len(items) > 0:
+#         album = items[0]
+#         image_url = album.get('images', [{}])[0].get('url', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fquoka&psig=AOvVaw3bU1CBvyCRe5UDCBYh8t7i&ust=1712596938575000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPCL-fLOsIUDFQAAAAAdAAAAABAE')
+#         image_urls.append(image_url)
+#         print(album['name'], image_url)
+
+new = sp.search(q="Baby", type="track")
+items = new['tracks']['items']
+if len(items) > 0:
+    albums = items[0]
+    image_url = albums['images'][0]['url']
+    print(albums['name'], image_url)
+
 #API ROUTE FOR THE PERSONA
 @app.route('/get-persona', methods=['GET'])
 def get_persona():
@@ -211,6 +229,10 @@ def get_rec_tracks():
 
     listOfRecs = get_recommendations(sp, seed_artists, seed_tracks, desiredmood)
     return jsonify(listOfRecs), 200
+
+@app.route('/get-image-urls', methods=['GET'])
+def get_image_urls():
+    return jsonify(image_urls), 200
 
 if __name__ == "__main__":
     app.run(debug = True)
